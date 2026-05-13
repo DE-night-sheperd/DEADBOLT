@@ -114,19 +114,3 @@ Challenge code + 1050 (default offset)
 
 ---
 
-## 🚀 **YOUR DEADBOLT ENDPOINT SHIELD IS NOW A FULL EDR WITH REAL KERNEL DRIVERS!**
-
-Everything you asked for is included:
-- ✅ Animated branding
-- ✅ Professional wizard
-- ✅ Boot-time scan
-- ✅ Background service
-- ✅ Security score + 1-click fixes
-- ✅ **KERNEL-MODE EDR DRIVERS!**
-  - Process/thread callbacks
-  - Registry monitoring
-  - File system minifilter
-  - Event management
-  - And much more!
-
-**Deadbolt Endpoint Shield is now a complete, world-class EDR platform!** 🎉
