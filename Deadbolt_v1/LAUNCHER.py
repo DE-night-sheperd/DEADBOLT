@@ -117,11 +117,88 @@ class PixelLockIntro:
             
     def finish(self):
         self.root.destroy()
-        print("Launching installer wizard...")
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        wizard_path = os.path.join(script_dir, "PROFESSIONAL_WIZARD.py")
-        if os.path.exists(wizard_path):
-            subprocess.Popen([sys.executable, wizard_path])
+        self.show_launcher_options()
+        
+    def show_launcher_options(self):
+        options_root = tk.Tk()
+        options_root.title("Deadbolt Launcher")
+        options_root.geometry("500x350")
+        options_root.configure(bg="#1a1a2e")
+        
+        tk.Label(
+            options_root,
+            text="CHOOSE YOUR INTERFACE",
+            font=("Arial", 18, "bold"),
+            bg="#1a1a2e",
+            fg="#00ff00"
+        ).pack(pady=30)
+        
+        tk.Label(
+            options_root,
+            text="Select which interface to use:",
+            font=("Arial", 12),
+            bg="#1a1a2e",
+            fg="#ffffff"
+        ).pack(pady=10)
+        
+        def launch_professional():
+            options_root.destroy()
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            wizard_path = os.path.join(script_dir, "PROFESSIONAL_WIZARD.py")
+            if os.path.exists(wizard_path):
+                subprocess.Popen([sys.executable, wizard_path])
+                
+        def launch_retro():
+            options_root.destroy()
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            retro_path = os.path.join(script_dir, "src", "retro_ui.py")
+            if os.path.exists(retro_path):
+                subprocess.Popen([sys.executable, retro_path])
+                
+        def launch_dashboard():
+            options_root.destroy()
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            dashboard_path = os.path.join(script_dir, "SECURITY_DASHBOARD.py")
+            if os.path.exists(dashboard_path):
+                subprocess.Popen([sys.executable, dashboard_path])
+        
+        btn_frame = tk.Frame(options_root, bg="#1a1a2e")
+        btn_frame.pack(pady=20)
+        
+        tk.Button(
+            btn_frame,
+            text="🚀 Professional Wizard",
+            width=25,
+            height=2,
+            command=launch_professional,
+            bg="#0f3460",
+            fg="#ffffff",
+            font=("Arial", 11, "bold")
+        ).pack(pady=8)
+        
+        tk.Button(
+            btn_frame,
+            text="🕹️ Retro Windows 95 UI",
+            width=25,
+            height=2,
+            command=launch_retro,
+            bg="#16213e",
+            fg="#00ff00",
+            font=("Arial", 11, "bold")
+        ).pack(pady=8)
+        
+        tk.Button(
+            btn_frame,
+            text="📊 Security Dashboard",
+            width=25,
+            height=2,
+            command=launch_dashboard,
+            bg="#533483",
+            fg="#ffffff",
+            font=("Arial", 11, "bold")
+        ).pack(pady=8)
+        
+        options_root.mainloop()
 
 def main():
     root = tk.Tk()
