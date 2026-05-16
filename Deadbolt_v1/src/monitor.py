@@ -5,6 +5,7 @@ import win32pipe
 import win32file
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from zip_bomb_detector import ZipBombDetector
 
 TARGET_DIR = r"C:\DeadboltTest"
 PIPE_NAME = r"\\.\pipe\DeadboltIPC"
@@ -15,6 +16,7 @@ class MonitorHandler(FileSystemEventHandler):
     def __init__(self):
         self.events = []
         self.lock = threading.Lock()
+        self.zip_detector = ZipBombDetector()
         
     def on_modified(self, event):
         if not event.is_directory:
@@ -28,6 +30,13 @@ class MonitorHandler(FileSystemEventHandler):
         try:
             size = os.path.getsize(path)
             now = time.time()
+            
+            # Check for zip bomb first!
+            if self.zip_detector.scan_file(path):
+                print(f"⚠️  ZIP BOMB DETECTED: {path}")
+                send_alert()
+                return
+                
             with self.lock:
                 self.events.append((size, now))
                 self.check(now)
